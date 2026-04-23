@@ -28,7 +28,8 @@ const Search = () => {
         setLoading(true);
         setSearched(true);
         try {
-            const response = await axios.get(`http://localhost:${SEARCH_SERVICE_PORT}/api/search?query=${searchTerm}`);
+            const searchApiUrl = process.env.REACT_APP_SEARCH_URL || 'http://localhost:8082';
+            const response = await axios.get(`${searchApiUrl}/api/search?query=${searchTerm}`);
             setResults(response.data);
         } catch (error) {
             console.error("Error executing search:", error);

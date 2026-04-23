@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import axios from 'axios';
+import ImageZoom from '../components/ImageZoom';
 
 const ProductDetail = () => {
   const { id } = useParams(); // Gets the ID from the URL (e.g., /product/1)
@@ -15,7 +16,8 @@ const ProductDetail = () => {
     const fetchProduct = async () => {
       try {
         // Calling your Spring Boot Product Microservice
-        const response = await axios.get(`http://localhost:8081/api/products/${id}`);
+        const productApiUrl = process.env.REACT_APP_PRODUCT_URL || 'http://localhost:8081';
+        const response = await axios.get(`${productApiUrl}/api/products/${id}`);
         setProduct(response.data);
         setLoading(false);
       } catch (err) {
@@ -47,7 +49,10 @@ const ProductDetail = () => {
       <div className="pdp-container">
         {/* Left Column: S3 Image */}
         <div className="pdp-image-section">
-          <img src={product.imageUrl} alt={product.name} className="main-product-image" />
+          <ImageZoom 
+            imageUrl={product.imageUrl} 
+            altText={product.name} 
+          />
         </div>
 
         {/* Right Column: Details */}

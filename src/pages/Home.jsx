@@ -37,7 +37,8 @@ const Home = () => {
         const fetchProducts = async () => {
             try {
                 // Port 8081 for Product Service
-                const response = await axios.get('http://localhost:8081/api/products');
+                const productApiUrl = process.env.REACT_APP_PRODUCT_URL || 'http://localhost:8081';
+                const response = await axios.get(`${productApiUrl}/api/products`);
                 setProducts(response.data);
                 setLoading(false);
             } catch (error) {
