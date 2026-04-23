@@ -56,7 +56,9 @@ const Home = () => {
             if (searchQuery.trim().length > 1) { // Only search if they typed at least 2 characters
                 try {
                     // IMPORTANT: Port 8083 for Search Service!
-                    const res = await axios.get(`http://localhost:8083/api/search?query=${searchQuery}`);
+                    const searchApiUrl = process.env.REACT_APP_SEARCH_URL || 'http://localhost:8082';
+                    const res = await axios.get(`${searchApiUrl}/api/search?query=${searchQuery}`);
+                    
                     // Only show the top 4 results in the dropdown
                     setSuggestions(res.data.slice(0, 4)); 
                     setShowSuggestions(true);
