@@ -12,9 +12,6 @@ const Search = () => {
     const [loading, setLoading] = useState(false);
     const [searched, setSearched] = useState(false); // Tracks if a search has been executed
 
-    // Change to whatever port your SearchService is actually running on!
-    const SEARCH_SERVICE_PORT = '8082'; 
-
     useEffect(() => {
         // If there's a query in the URL on page load, automatically search for it
         if (queryParam) {
